@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+// 백준 3052
 public class Remainder {
 
 	public static void main(String[] args) throws IOException {
