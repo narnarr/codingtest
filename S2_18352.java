@@ -8,7 +8,6 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
 
-// 경쟁적 전염
 // 그래프 알고리즘 http://dblab.duksung.ac.kr/ds/pdf/Chap10.pdf
 public class S2_18352 {
 
