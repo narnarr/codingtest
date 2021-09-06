@@ -8,46 +8,48 @@ import java.util.StringTokenizer;
 // tree cutter
 public class S3_2805 {
 	
+	static int trees[], max;
+
 	public static void main(String[] args) throws IOException {
 		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
-		int N = Integer.parseInt(st.nextToken()); // num of trees
-		int M = Integer.parseInt(st.nextToken()); // target
-		int[] trees = new int[N];
+		int N = Integer.parseInt(st.nextToken()); // number of trees
+		int M = Integer.parseInt(st.nextToken()); // target length
 		
-		int max = 0;
+		trees = new int[N];
 		
 		st = new StringTokenizer(br.readLine());
+		
 		for (int i=0; i<N; i++) {
 			trees[i] = Integer.parseInt(st.nextToken());
 			max = Math.max(max, trees[i]);
 		}
 		
+		System.out.println(findCutter(N, M));
+	}
+	
+	public static long findCutter(int N, int M) {
+		
+		long start = Math.max(0, max-M); // faster than 0
 		long end = max;
-		long start = 0; // faster than 'max - M'
-		long sum, mid;
+		long mid, sum;
 		
 		while (start <= end) {
-			mid = (start + end) / 2;
+			mid = (start+end)/2;
 			sum = 0;
 			
-			for (int tree: trees) {
-				if (tree > mid) sum += (tree-mid);
+			for (int i=0; i<N; i++) {
+				if (trees[i] > mid) sum += (trees[i]-mid);
 			}
 			
-			// if sum is bigger than target, lengthen the cutter
-			if (sum >= M) {
-				start = mid +1;
-			}
-			// if sum is smaller than target, shorten the cutter
-			else {
-				end = mid - 1;
-			}
+			// lengthen the cutter if sum exceeds M
+			if (sum >= M) start = mid + 1;
+			// shorten the cutter if sum is not enough
+			else if (sum < M) end = mid - 1;
 		}
 		
-		System.out.println(end);
+		return end;
 	}
-
 }
